@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('doctor_name');
             $table->string('doctor_qualifications');
             $table->json('reports');
+            $table->json('report_discount')->nullable();
             $table->timestamps();
         });
     }
