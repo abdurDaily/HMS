@@ -85,7 +85,7 @@
                                             <label for="report_{{  $report->id }}">
                                                 {{ $report->report_name }} ( <b>{{ $report->report_price }} /-</b> )
                                                 <input type="checkbox" value="{{  $report->id }}" name="report[]" id="report_{{  $report->id }}">
-                                                <input type="number"  name="report_discount[]"   placeholder="Discount (00%)" class="form-control text-center mt-3">
+                                                <input type="number"  name="report_discount[{{ $report->id }}]"   placeholder="Discount (00%)" class="form-control text-center mt-3">
                                             </label>
                                         </div>
                                     </div>

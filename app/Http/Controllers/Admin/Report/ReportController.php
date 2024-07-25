@@ -60,7 +60,7 @@ class ReportController extends Controller
 
     //*((:: -REPORT-UPDATE- ::))
     public function patientReportUpdate(Request $request){
-        // dd(json_encode($request->report_discount));
+        // dd(($request->all()));
         $patientReports = new PatientReport();
         $patientReports->patinet_name= $request->patient_name;
         $patientReports->patinet_number= $request->patient_number;
@@ -86,7 +86,9 @@ class ReportController extends Controller
     public function patientReportPdf($id){
         $patientReport = PatientReport::find($id);
         $reports = Report::whereIn('id',json_decode($patientReport->reports))->get();
-        dd($patientReport);
-        return view('backend.Medical__Reports.Report_Pdf',compact('reports','patientReport'));
+        $discount = collect(json_decode($patientReport->report_discount))->toArray();
+        // $test = PatientReport::whereIn('reports',json_decode($patientReport->report_discount))->get();
+        // dd($discount);
+        return view('backend.Medical__Reports.Report_Pdf',compact('reports','patientReport','discount'));
     }
 }

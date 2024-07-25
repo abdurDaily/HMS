@@ -60,7 +60,7 @@
                 <table width="1000" cellpadding="20" cellspacing="0">
                     <tr>
                         <td style="border: 1px solid #000;width:70%;"> <b>DESCRIPTION</b> </td>
-                        <td style="border: 1px solid #000;width:30%;"> <b>PAYMENT STATUS</b> </td>
+                        <td style="border: 1px solid #000;width:30%; text-align:center;"> <b>PAYMENT STATUS</b> </td>
                     </tr>
                 </table>
 
@@ -71,12 +71,24 @@
                 @forelse ($reports as $key => $report)
                 <table width="1000" cellpadding="10" cellspacing="0">
                     <tr>
-                        <td style="border: 1px solid #000;width:70%;">{{++$key. '.' . $report->report_name }}</td>
-                        <td style="border: 1px solid #000;width:30%; text-align:right;"> <b>{{ $report->report_price }}</b> BDT</td>
+                        <td style="border: 1px solid #000;width:70%;">{{++$key. '.' . $report->report_name }} 
+                            @if (isset($discount[$report->id]))
+                                
+                            ({{ $discount[$report->id] }}%)
+                            @endif
+                        </td>
+                        <td style="border: 1px solid #000;width:30%; text-align:center;"> <b>{{ $reportPrice = isset($discount[$report->id]) ? $report->report_price - (($report->report_price*$discount[$report->id])/100) : $report->report_price }}</b> BDT
+                        
+                            @if (isset($discount[$report->id]))
+                                
+                           <del> ({{ $report->report_price }}) </del> BDT   
+                            @endif
+                        
+                        </td>
                     </tr>
                 </table>
                 @php
-                    $total += $report->report_price;
+                    $total += $reportPrice;
                 @endphp
                 @empty
                 <table width="1000" cellpadding="10" cellspacing="0">
@@ -91,7 +103,7 @@
                 <table width="1000" cellpadding="10" cellspacing="0">
                     <tr>
                         <td style="border: 1px solid #000;width:70%;"><b>Total</b></td>
-                        <td style="border: 1px solid #000;width:70%; text-align:right;"> <b>{{ $total }} BDT</b> </td>
+                        <td style="border: 1px solid #000;width:70%; text-align:center;"> <b>{{ $total }} BDT</b> </td>
                     </tr>
                 </table>
 
